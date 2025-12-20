@@ -3,17 +3,14 @@ trigger: none
 pool: Latest-Pool
 
 stages:
-  - stage: TerraformInitStage
-    displayName: initwalistage
+  - stage: InitValidatePlan
+    displayName: InitValidatePlan
     jobs:
-      - job: FirstJob
+      - job: InitValidatePlanJob
+        displayName: InitValidatePlanJob
         steps:
-          - task: TerraformInstaller@1
-            inputs:
-              terraformVersion: 'latest'
-
+          
           - task: TerraformTask@5
-            displayName: terraformInit
             inputs:
               provider: 'azurerm'
               command: 'init'
@@ -22,14 +19,5 @@ stages:
               backendAzureRmContainerName: 'bawla-container'
               backendAzureRmKey: 'terraform.tfstate'
 
-          - task: TerraformTask@5
-            displayName: terraformValidate
-            inputs:
-              provider: 'azurerm'
-              command: 'validate'
-
-          - task: TerraformTask@5
-            inputs:
-              provider: 'azurerm'
-              command: 'plan'
-              environmentServiceNameAzureRM: 'rumuitserviceconnection'
+  # - stage: securityScan
+  # - stage: ApprovalAndApply
