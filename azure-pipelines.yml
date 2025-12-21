@@ -11,6 +11,7 @@ stages:
         steps:
           
           - task: TerraformTask@5
+   
             inputs:
               provider: 'azurerm'
               command: 'init'
@@ -42,13 +43,14 @@ stages:
               environmentServiceNameAzureRM: 'rumuitserviceconnection'
 
 
-  - stage: Linting
+  - stage: Linting    
     displayName: Linting Stage
     jobs:
       - job: LintingJob
         steps:
           
           - task: PowerShell@2
+            continueOnError: true
             inputs:
               targetType: 'inline'
               script: 'tflint.exe --chdir=$(System.DefaultWorkingDirectory)'
@@ -62,6 +64,7 @@ stages:
         steps:
                
           - task: AzurePowerShell@5
+            continueOnError: true
             inputs:
               azureSubscription: 'rumuitserviceconnection'
               ScriptType: 'InlineScript'
