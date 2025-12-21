@@ -6,9 +6,7 @@ terraform.tfstate.backup
 crash.log
 crash.*.log
 
-# Variable files (secrets / env specific)
-*.tfvars
-*.tfvars.json
+
 
 # Override files
 override.tf
