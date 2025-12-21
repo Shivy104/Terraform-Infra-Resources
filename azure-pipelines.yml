@@ -69,6 +69,7 @@ stages:
 
 
   - stage: ManualValidationStage
+    pool: server
     displayName: Manual Validation Stage
     jobs:
       - job: ManualValidationJob
@@ -80,10 +81,10 @@ stages:
               approvers: 'shivammagotra8@gmail.com'
 
 
-  - stage: Deploy
-    displayName: Deploy Stage
-    jobs:
-      - job: DeployJob
+  # - stage: Deploy
+  #   displayName: Deploy Stage
+  #   jobs:
+  #     - job: DeployJob
         
 
 #   stage 1: InstallAndInit
