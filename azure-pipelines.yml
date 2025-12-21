@@ -85,6 +85,27 @@ stages:
               approvers: 'shivammagotra8@gmail.com'
 
 
+  - stage: DeployStage
+    displayName: Deploy Stage
+    jobs:
+      - job: DeployJob
+        displayName: Deploy Job
+        steps:
+          - task: TerraformTask@5
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              backendServiceArm: 'rumuitserviceconnection'
+              backendAzureRmStorageAccountName: 'test42022'
+              backendAzureRmContainerName: 'bawla-container'
+              backendAzureRmKey: 'terraform.tfstate'
+
+          - task: TerraformTask@5
+            inputs:
+              provider: 'azurerm'
+              command: 'apply'
+              environmentServiceNameAzureRM: 'rumuitserviceconnection'
+
   # - stage: Deploy
   #   displayName: Deploy Stage
   #   jobs:
