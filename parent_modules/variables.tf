@@ -60,3 +60,11 @@ variable "bastion" {
 variable "lb" {
   
 }
+
+variable "acr1" {
+  
+}
+
+variable "aks" {
+  
+}

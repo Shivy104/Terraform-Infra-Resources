@@ -42,7 +42,7 @@ module "nsg_association" {
 module "vm" {
   source     = "../modules/azurerm_vm"
   vm_config = var.vm_config
-  depends_on = [module.nic]
+  depends_on = [module.nic , module.rg]
 }
 
 module "KV" {
@@ -97,5 +97,19 @@ module "lb" {
   depends_on = [ module.rg, module.pip ]
   source = "../modules/azurerm_load_balancer"
   lb = var.lb
+  
+}
+
+module "acr" {
+  depends_on = [ module.rg ]
+  source = "../modules/azurerm_acr"
+  acr = var.acr1
+  
+}
+
+module "aks" {
+  depends_on = [ module.rg ]
+  source = "../modules/azurerm_aks"
+  aks = var.aks
   
 }

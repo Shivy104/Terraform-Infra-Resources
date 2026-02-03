@@ -51,7 +51,7 @@ ip_config = {
 
 nic_config = {
   "nic1" = {
-    nic_name                    = "nic1"
+    nic_name                    = "nic11"
     resource_group_name         = "rg-shivam"
     network_interface_location           = "East US"
     subnet_name                 = "dev-subnet"
@@ -60,7 +60,7 @@ nic_config = {
   }
 
     "nic2" = {
-    nic_name                    = "nic2"
+    nic_name                    = "nic22"
     resource_group_name         = "rg-shivam"
     network_interface_location           = "East US"
     subnet_name                 = "dev-subnet"
@@ -85,38 +85,50 @@ nsg_config = {
             destination_port_range     = "80"
             source_address_prefix      = "*"
             destination_address_prefix = "*"
-      }, 
+      }
+    ]
+
+  }
+    "nsg2" = {
+    nsg_name                = "nsg2"
+    resource_group_name     = "rg-shivam"
+    location                = "East US"
+    security_rule = [
       {
-            name                       = "ssh"
-            priority                   = 101
+            name                       = "http"
+            priority                   = 100
             direction                  = "Inbound"
             access                     = "Allow"
             protocol                   = "Tcp"
             source_port_range          = "*"
-            destination_port_range     = "22"
+            destination_port_range     = "80"
             source_address_prefix      = "*"
             destination_address_prefix = "*"
       }
-
-
-    ]
+      ]
   }
 }
 
 nsg_nic_config = {
   "assoc1" = {
-    nic_name                = "nic1"
+    nic_name                = "nic11"
     nsg_name                = "nsg1"
+    resource_group_name     = "rg-shivam"
+  }
+
+    "assoc2" = {
+    nic_name                = "nic22"
+    nsg_name                = "nsg2"
     resource_group_name     = "rg-shivam"
   }
 }
 
 vm_config = {
   "vm1" = {
-    vm_name          = "frontendvm"
+    vm_name          = "frontendvm420"
     resource_group_name = "rg-shivam"
     location        = "East US"
-    nic_name        = "nic1"
+    nic_name        = "nic11"
     vm_size         = "Standard_B1s"
     admin_username  = "azureuser"
     admin_password  = "P@ssw0rd1234!"
@@ -134,10 +146,10 @@ vm_config = {
   }
 
     "vm2" = {
-    vm_name          = "backendvm"
+    vm_name          = "backendvm420"
     resource_group_name = "rg-shivam"
     location        = "East US"
-    nic_name        = "nic2"
+    nic_name        = "nic22"
     vm_size         = "Standard_B1s"
     admin_username  = "azureuser"
     admin_password  = "P@ssw0rd1234!"
@@ -158,7 +170,7 @@ vm_config = {
 
 kv = {
   kv1 = {
-    kv_name = "shivam-kv1"
+    kv_name = "shivam-kv420"
     location = "East US"
     resource_group_name = "rg-shivam"
   }
@@ -167,17 +179,17 @@ kv = {
 
 kvs = {
   kvs1 = {
-    kv_name = "shivam-kv1"
+    kv_name = "shivam-kv420"
     resource_group_name = "rg-shivam"
-    secret_name = "shhhhhh-admin"
+    secret_name = "shhhhhh-admin1"
     secret_value = "admin-12"
 
   }
 
   kvs2 = {
-       kv_name = "shivam-kv1"
+       kv_name = "shivam-kv420"
     resource_group_name = "rg-shivam"
-    secret_name = "shhhhhh-password"
+    secret_name = "shhhhhh-password1"
     secret_value = "Password@123"
 
   }
@@ -212,7 +224,7 @@ sqldb1 = {
 
 stg = {
   stg1 = {
-    name = "billustg"
+    name = "billustg420"
       resource_group_name = "rg-shivam"
       location  = "East US"
       account_tier = "Standard"
@@ -270,5 +282,44 @@ lb = {
       backend_port = 80
       frontend_ip_configuration_name = "fipc-420"
       pipname = "lbpip"
+  }
+}
+
+acr1 = {
+  acr11 = {
+    name = "acr420"
+    resource_group_name = "rg-shivam"
+    location = "East US"
+    sku = "Premium"
+    admin_enabled = false
+    georeplications = [
+      {
+        location = "Central India"
+        zone_redundancy_enabled = false
+      }
+
+    ]
+  }
+}
+
+aks = {
+  aks1 = {
+    name = "aks420"
+    location = "East US"
+    resource_group_name = "rg-shivam"
+    dns_prefix          = "dnsaks1"
+    default_node_pool = {
+      dnp1 = {
+        name = "default"
+        node_count = 1
+        vm_size = "Standard_D2_v2"
+      }
+    }
+
+    identity = [
+      {
+        type = "SystemAssigned"
+      }
+    ]
   }
 }
